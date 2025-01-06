@@ -1,7 +1,5 @@
 # TinyAgent
 
-> 论文：***[ReAct: Synergizing Reasoning and Acting in Language Models](http://arxiv.org/abs/2210.03629)***
-
 <div style="display: flex; justify-content: center;">
     <img src="./images/React.png" style="width: 100%;">
 </div>

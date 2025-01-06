@@ -1,11 +1,4 @@
 # TinyAgent
-手搓Agent直播：暂无录制直播，麻烦在Datawhale视频号搜索"【从零手搓大模型实战讲解】Tiny-Agent:动手搭建一个最小Agent系统"。
-
-在`ChatGPT`横空出世，夺走`Bert`的桂冠之后，大模型愈发的火热，国内各种模型层出不穷，史称“百模大战”。大模型的能力是毋庸置疑的，但大模型在一些实时的问题上，或是某些专有领域的问题上，可能会显得有些力不从心。因此，我们需要一些工具来为大模型赋能，给大模型一个抓手，让大模型和现实世界发生的事情对齐颗粒度，这样我们就获得了一个更好的用的大模型。
-
-这里基于`React`的方式，我们手动制作了一个最小的`Agent`结构（其实更多的是调用工具），暑假的时候会尝试将`React`结构修改为`SOP`结构。
-
-一步一步手写`Agent`，可以让我们对`Agent`的构成和运作更加的了解。以下是`React`论文中一些小例子。
 
 > 论文：***[ReAct: Synergizing Reasoning and Acting in Language Models](http://arxiv.org/abs/2210.03629)***
 
@@ -17,9 +10,9 @@
 
 ### Step 1: 构造大模型
 
-首先我们需要一个大模型，这里我们使用`InternLM2`作为我们的 Agent 模型。`InternLM2`是一个基于`Decoder-Only`的通用对话大模型，可以使用`transformers`库来加载`InternLM2`模型。
+使用`InternLM2`作为的 Agent 模型。`InternLM2`是一个基于`Decoder-Only`的通用对话大模型，可以使用`transformers`库来加载`InternLM2`模型。
 
-首先，还是先创建一个`BaseModel`类，我们可以在这个类中定义一些基本的方法，比如`chat`方法和`load_model`方法，方便以后扩展使用其他模型。
+先创建一个`BaseModel`类，在这个类中定义一些基本的方法，比如`chat`方法和`load_model`方法，方便以后扩展使用其他模型。
 
 ```python
 class BaseModel:
@@ -33,7 +26,7 @@ class BaseModel:
         pass
 ```
 
-接着，我们创建一个`InternLM2`类，这个类继承自`BaseModel`类，我们在这个类中实现`chat`方法和`load_model`方法。就和正常加载`InternLM2`模型一样，来做一个简单的加载和返回即可。
+接着，创建一个`InternLM2`类，这个类继承自`BaseModel`类，在这个类中实现`chat`方法和`load_model`方法。就和正常加载`InternLM2`模型一样，来做一个简单的加载和返回即可。
 
 ```python
 class InternLM2Chat(BaseModel):
@@ -54,7 +47,7 @@ class InternLM2Chat(BaseModel):
 
 ### Step 2: 构造工具
 
-我们在`tools.py`文件中，构造一些工具，比如`Google搜索`。在这个文件中，构造一个`Tools`类。在这个类中，我们需要添加一些工具的描述信息和具体实现方式。
+在`tools.py`文件中，构造一些工具，比如`Google搜索`。在这个文件中，构造一个`Tools`类。在这个类中，需要添加一些工具的描述信息和具体实现方式。
 
 添加工具的描述信息，是为了在构造`system_prompt`的时候，让模型能够知道可以调用哪些工具，以及工具的描述信息和参数。
 
@@ -92,9 +85,9 @@ class Tools:
 
 ### Step 3: 构造Agent
 
-我们在`Agent.py`文件中，构造一个`Agent`类，这个`Agent`是一个`React`范式的`Agent`，我们在这个`Agent`类中，实现了`text_completion`方法，这个方法是一个对话方法，我们在这个方法中，调用`InternLM2`模型，然后根据`React`的`Agent`的逻辑，来调用`Tools`中的工具。
+在`Agent.py`文件中，构造一个`Agent`类，这个`Agent`是一个`React`范式的`Agent`，在这个`Agent`类中，实现了`text_completion`方法，这个方法是一个对话方法，在这个方法中，调用`InternLM2`模型，然后根据`React`的`Agent`的逻辑，来调用`Tools`中的工具。
 
-首先我们要构造`system_prompt`, 这个是系统的提示，我们可以在这个提示中，添加一些系统的提示信息，比如`ReAct`形式的`prompt`。
+首先要构造`system_prompt`, 这个是系统的提示，可以在这个提示中，添加一些系统的提示信息，比如`ReAct`形式的`prompt`。
 
 ```python
 def build_system_input(self):

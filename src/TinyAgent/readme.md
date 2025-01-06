@@ -192,8 +192,6 @@ print(response)
 # Final Answer: 周杰伦的第一张专辑是《Jay》。 
 ```
 
-> ***记得给仓库点个小小的 star 哦~***
-
 ## 论文参考
 
 - [ReAct: Synergizing Reasoning and Acting in Language Models](http://arxiv.org/abs/2210.03629)
